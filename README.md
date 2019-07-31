@@ -1,7 +1,7 @@
 # Live Project
 
 ## Introduction
-For the past 2 weeks while attneding the Tech Academy, I participated in the Live Project course were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implimenting new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
+For the past 2 weeks while attending the Tech Academy, I participated in the Live Project course were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implimenting new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
 
 ## Stories
 * [Restaurant Application](#restaurant-application)
