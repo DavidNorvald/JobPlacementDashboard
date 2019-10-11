@@ -252,8 +252,8 @@ Below is teh code snip of the Preloader script. It starts by targeting the .btnS
 The next story that I worked on in the C# Live Project was fixing the save button on the Edit section of the Jobs view. When the user tried to update a pre-existing job, the changes would not be recorded in the db and when the user clicked the save button, nothing would happen. There was a conflicting script on the Jobs/Edit view that was causing the button to not function, soa fter removing the script that did not do anything anymore, the button started functioning, but would only save some of the changes and not all of them.
 I had to edit the controller to include the changes made to the jobType, Notes, Active, and WeeklyShifts tables, so those changes would be updated in the db whent he user hit the Save button. Below is the code for the Jobs Controller for the Save button to fully function.
 
+The below method uses the TryUpdateModel method and targets the job type, notes, active, and weekly shifts fields specifically as the other fields are updated in the prior methods of the Controller.
 
-// below method uses the TryUpdateModel method and targets the job type, notes, active, and weekly shifts fields specifically as the other fields are updated in the below methods
             if (TryUpdateModel(job, "",
                 new string[] { "JobType", "Notes", "Active", "WeeklyShifts" }))
             {
