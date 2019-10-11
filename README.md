@@ -1,11 +1,29 @@
 # Live Project
 
 ## Introduction
-For the past 2 weeks while attending the Tech Academy, I participated in the Live Project course were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implimenting new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
+For my first 2 week sprint at the Tech Academy, I participated in the Live Project course for Python were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implimenting new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
 
-## Stories
+
+## Python Stories
 * [Restaurant Application](#restaurant-application)
 * [Hotel Search cleanup](#hotel-search-cleanup)
+
+## C# Stories
+* [Preloader](#preloader)
+* [Save Button Bug](#save-button-bug)
+
+## Front-End Stories
+* [Site Tour](#site-tour)
+
+## Back-End Stories
+* [Anchor Button Cleanup](#anchor-button-cleanup)
+
+## Skills learned
+* [Skills](#skills-learned-from-course)
+
+## Summary of Live Project Course
+* [Summary of Live Project](#summary-of-live-project)
+
 
 ### Restaurant Application
 I worked on implimenting a "search by cuisine type" feature to the Restaurant Application along side the City and Sate search feature already in place. The application used the Zomato API, so I had to research how to impliment the URL parameters to use the existing search results to include the resulting cuisine ID numbers that the Zomato API uses in its search query. The returning results from the API needed to be parsed through to only retrieve the cuisine name and cuisine ID, and then make sure that the cuisine name matched what the user input into the form fields on the web application.
@@ -117,7 +135,6 @@ Along with implimenting the new search feature, the Restaurant Application neede
 Along with updating the Restaurant Applications search features, I also worked on cleaning up the Hotel Search Application to be more user friendly. Over the course of this project, I cleaned up the user interface and styled the front end portion of the application so the user could read the data being returned fromt eh search. I kept the data returned to a minimun and added a modal that housed additional info when clicked. 
 
 
-
   {% block search_results %}
   <div id="results">
       {% for result in results %}
@@ -203,10 +220,140 @@ The CSS stylings for the Hotal Search were kept in line with the overall styling
         background-color: azure;
     }
 
+
+### Preloader
+While working on the C# Live Project, I had to impliment a Preloader gif to the button classes. When clicked upon, the preloader gif would trigger, displaying the gif to show the user that the page was loading.
+Below is teh code snip of the Preloader script. It starts by targeting the .btnSubmit class, and when the button is clicked, it shows the loading gif of #divLoader by targeting its id. The gif appears when submitting data using the POST method so the user knows that their data is being posted to the db.
+
+         // PRELOADER script
+         $(".btnSubmit").click(function () {
+             $("#divLoader").show();
+             $.ajax({
+                 type: "POST",
+                 url: '',
+                 dataType: "",
+                 contentType: 'application/json; charset=utf-8',
+                 alert: "Submitted Successfully",
+                 data: {},
+
+                 success: function (data) {
+                     $("#divLoader").hide();
+                     //alert(data);
+                 },
+                 error: function (xhr) {
+                     $("#divLoader").hide();
+                     //alert('error');
+                 }
+             })
+         });
+
+
+### Save Button Bug
+The next story that I worked on in the C# Live Project was fixing the save button on the Edit section of the Jobs view. When the user tried to update a pre-existing job, the changes would not be recorded in the db and when the user clicked the save button, nothing would happen. There was a conflicting script on the Jobs/Edit view that was causing the button to not function, soa fter removing the script that did not do anything anymore, the button started functioning, but would only save some of the changes and not all of them.
+I had to edit the controller to include the changes made to the jobType, Notes, Active, and WeeklyShifts tables, so those changes would be updated in the db whent he user hit the Save button. Below is the code for the Jobs Controller for the Save button to fully function.
+
+
+// below method uses the TryUpdateModel method and targets the job type, notes, active, and weekly shifts fields specifically as the other fields are updated in the below methods
+            if (TryUpdateModel(job, "",
+                new string[] { "JobType", "Notes", "Active", "WeeklyShifts" }))
+            {
+                try
+                {
+                    job.Location = db.JobSites.Find(Int32.Parse(LocationId));           // used to find location site in db by ID so if changed, it will be saved
+                    job.Manager = db.Users.Find(ManagerId);                             // used to find manager from db by ID so if changed, it will be saved
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataMisalignedException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes.Try again, and if the problem persists, see your system                             administrator.");
+                }
+            }
+            
+
+### Site Tour
+For my front-end design sprint, i chose the story that implimented a site tour for the whole project to guide users around the site, showing them the different features that are available. The first attempt at the site tour was done with Bootstrap Tour. After a lot of research about how to implement the tour on the project, we found out that the current version of Bootstrap4 does not work with Bootstrap Tour as it has not been updated to reflect the new changes. Bootstrap Tour is a very fun way to guide a user around your site and is overall a very clean approach to a site tour, but it was just not compatible with the Live Project's other features as it is dependent on tooltip.js and popover.js for it to work. 
+After many failed attempts on trying to get it working (I tried both the full version and the minified versions of Bootstrap Tour to no success) it was discussed at trying to use another site tour plugin. I ended up going with intro.js as it did not have any dependencies that would conflict with anything else on the Live Project. Intro.js is also a very clean approach at guiding your users around your site and has a lot of its features built into its own JavaScript and CSS files, making it easier to implement. There were a few bugs when trying to get the site tour to work, like not covering up the element that the tour was trying to show the user, but was able to resolve that issue by reading about another persons experience with the same thing and the fix to get intro.js to not cover up teh elements. I also styled the tooltip containers to reflect the color pallete of teh Live Project, so that it looked like it fit in with the rest of the project. The tour was started when the user would click on the site tour button that was added to the navigation bar upon clicking it.
+
+         <script type="text/javascript">
+             function startIntro() {
+                 var intro = introJs();
+                 intro.setOptions({
+                     showStepNumbers: false,
+                     steps: [
+                         {
+                             element: '#step1',
+                             intro: 'This is the Nav Bar. This is what you use to navigate the site and get to the many sections that make up this webpage.'
+                         },
+                         {
+                             element: '#step2',
+                             intro: 'This is the Users section. From here, you can see all users.',
+                             position: 'right'
+                         },
+                         {
+                             element: '#step3',
+                             intro: 'This is the Jobs section. This is where you can create new jobs and see what is going on right now.',
+                             position: 'right'
+                         },
+                         {
+                             element: '#step4',
+                             intro: 'This is the Job Sites section. This is a list of the current sites for jobs. You can create new job sites here.',
+                             position: 'right'
+                         },
+                         {
+                             element: '#step5',
+                             intro: 'This is the Schedule section. You can see current schedules for employees. This is also where you go to request time off.',
+                             position: 'right'
+                         },
+                         {
+                             element: '#step6',
+                             intro: 'This is the company news section. This is where you will find all the latest company postings.',
+                             position: 'right'
+                         },
+                         {
+                             element: '#step7',
+                             intro: 'This is the company chat module. You can use this to talk to other members of the company.',
+                             position: 'right'
+                         }
+                     ]
+                 });
+        intro.start();
+    }
+</script>
+
+I also had to make sure that the site tour button was not able to be triggered while on any of the other pages of the Live Project, with the exception of the dashboard. To achieve this I had to make the button show on the dashboard, but hidden on all other sites by using an if else statement. Below is the code to achieve that functionality.
+
+         <!-- hides Site Tour button on all pages but dashboard -->
+         <script type="text/javascript">
+         $(function(){
+               if (window.location.pathname == "/Home/Dashboard") {
+                     $('#Site-Tour').show();
+               } else {
+                     $('#Site-Tour').hide();
+               }
+             });
+         </script>
+         
+
+### Anchor Button Cleanup
+For one of the back-end stories, I had to cleanup the Anchor Buttons that were implimented in a prior story and change over all the buttons on the various pages to reflect the new styling of the Anchor Buttons. The buttons that needed to be changed looked like this:
+
+         @Html.ActionLink("Back to List", "Index")
+         
+and needed to be changed to this:
+
+         @Html.Partial(AnchorButtonGroupHelper.PartialView, AnchorButtonGroupHelper.GetBack())
+
+
+
+
 *Jump to: [Page Top](#live-project), [Restaurant Application](#restaurant-application), [Hotel Search cleanup](#hotel-search-cleanup)*
 
 
-## [skills](#skills-learned-from-course)
+### Skills learned from course
 Overall, for the duration of the Live Project course for Python, it was great to see how things flowed while working as a group. It was really great to see other classmates projects take shape as pushes were made using Git. I felt that I could see how others projects were starting to develop as we would discuss through our daily stand-ups what we did the prior day and what we planned to accomplish for the current day and also what roadblocks we were hitting as developers so that we could get our issues resolved.
 
+
+
+### Summary of Live Project
 Through learning how to troubleshoot our problems and only reaching out if we were truly stuck on a problem, I felt it taught us how to be a better developer by troubleshootin gour own issues and really leveraging websites and forums for help and to give us a sense that just because we are junior developers, we are not alone in the world of coding and that everyone runs into issues, but that there is a wealth of knowledge available on the internet and websites like stackoverflow are an amazing resource for debugging code and to connect with the development community.
