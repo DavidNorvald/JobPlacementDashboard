@@ -423,7 +423,7 @@ Through the addition of the plugin, I was able to add a popup on the Leaflet map
         };
 
 
-*Jump to: [Page Top](#live-project), [Restaurant Application](#restaurant-application), [Hotel Search cleanup](#hotel-search-cleanup)*
+*Jump to: [Page Top](#live-project), [Restaurant Application](#restaurant-application), [Hotel Search cleanup](#hotel-search-cleanup), [Preloader](#preloader), [Save Button Bug](#save-button-bug), [Site Tour](#site-tour), [Anchor Button Cleanup](#anchor-button-cleanup), [JobSite directions](#jobsite-directions)*
 
 
 ### Skills learned from course
