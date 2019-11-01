@@ -17,6 +17,7 @@ For my first 2 week sprint at the Tech Academy, I participated in the Live Proje
 
 ## Back-End Stories
 * [Anchor Button Cleanup](#anchor-button-cleanup)
+* [JobSite directions](#jobsite-directions)
 
 ## Skills learned
 * [Skills](#skills-learned-from-course)
@@ -272,7 +273,7 @@ The below method uses the TryUpdateModel method and targets the job type, notes,
             
 
 ### Site Tour
-For my front-end design sprint, i chose the story that implimented a site tour for the whole project to guide users around the site, showing them the different features that are available. The first attempt at the site tour was done with Bootstrap Tour. After a lot of research about how to implement the tour on the project, we found out that the current version of Bootstrap4 does not work with Bootstrap Tour as it has not been updated to reflect the new changes. Bootstrap Tour is a very fun way to guide a user around your site and is overall a very clean approach to a site tour, but it was just not compatible with the Live Project's other features as it is dependent on tooltip.js and popover.js for it to work. 
+For my front-end design sprint, I chose the story that implimented a site tour for the whole project to guide users around the site, showing them the different features that are available. The first attempt at the site tour was done with Bootstrap Tour. After a lot of research about how to implement the tour on the project, we found out that the current version of Bootstrap4 does not work with Bootstrap Tour as it has not been updated to reflect the new changes. Bootstrap Tour is a very fun way to guide a user around your site and is overall a very clean approach to a site tour, but it was just not compatible with the Live Project's other features as it is dependent on tooltip.js and popover.js for it to work. 
 After many failed attempts on trying to get it working (I tried both the full version and the minified versions of Bootstrap Tour to no success) it was discussed at trying to use another site tour plugin. I ended up going with intro.js as it did not have any dependencies that would conflict with anything else on the Live Project. Intro.js is also a very clean approach at guiding your users around your site and has a lot of its features built into its own JavaScript and CSS files, making it easier to implement. There were a few bugs when trying to get the site tour to work, like not covering up the element that the tour was trying to show the user, but was able to resolve that issue by reading about another persons experience with the same thing and the fix to get intro.js to not cover up teh elements. I also styled the tooltip containers to reflect the color pallete of teh Live Project, so that it looked like it fit in with the rest of the project. The tour was started when the user would click on the site tour button that was added to the navigation bar upon clicking it.
 
          <script type="text/javascript">
@@ -345,6 +346,81 @@ and needed to be changed to this:
          @Html.Partial(AnchorButtonGroupHelper.PartialView, AnchorButtonGroupHelper.GetBack())
 
 
+### JobSite directions
+For my back-end story, I was tasked with implementing the addition of directions to the Job Site locations through the Leaflet map that was already deployed in the project. I had to first get Leaflet-Routing-machine added to the project along with the appropriate files to help the plugin function, like the addition of a Geocoder for address verification. For the project, I used Nominatim, as it was what was recommended on the documentation for Leaflet-Routing-Machine.
+Through the addition of the plugin, I was able to add a popup on the Leaflet map that the user could input starting and ending locations for directions, it also could be minimized if the user wanted to look at the map in greater detail. The API's documentation also allowed for the direction route to be draggable, in case the user wanted to take another direction instead of what Leaflet-Routing-Machine recommended, and would update the directions on screen to match the new route in real time. 
+
+         //Creates a leaflet map to display on the user's screen
+                 function setLeafletMap(mapId, lat, long, popupText) {
+                     var initialZoom = 13;
+
+            var apiToken = "pk.eyJ1IjoiYXMtdHRhY3NscCIsImEiOiJjanlwMmxhc3UwMTlzM2hxcTBjaDN2MHE2In0.CQq8cphDoOacxDkn7sdNtg";
+
+            var mapboxRequest = "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=";
+
+            var leafletMap = L.map(mapId).setView([lat, long], initialZoom);
+
+            L.tileLayer(mapboxRequest + apiToken, {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox.streets'
+            }).addTo(leafletMap);
+            
+            // creates button for start and ending waypoints for user's input
+            function button(label, container) {
+                var btn = L.DomUtil.create('button', '', container);
+                btn.setAttribute('type', 'button');
+                btn.innerHTML = label;vg
+                return btn;
+            }
+            
+            // Map Marker to display on user's screen
+            var leafletMarker = L.marker([lat, long]).addTo(leafletMap);
+
+            if (popupText != "") {
+                leafletMarker.bindPopup(popupText).openPopup();
+            }
+
+            // set Waypoints for the map to be null values, can hardcode in with coordinates in place of null values
+            // "geocoder" verifies address is valid, otherwise will default to a centered radius for the city
+            var control = L.Routing.control({
+                waypoints: [
+                    L.latLng(null),
+                    L.latLng(null)
+                ],
+                routeWhileDragging: true,
+                show: true,
+                geocoder: L.Control.Geocoder.nominatim(),
+                autoRoute: true
+            }).addTo(leafletMap);
+            // adds the container that houses the start and ending input fields
+            leafletMap.on('click', function (e) {
+                var container = L.DomUtil.create('div'),
+                    startBtn = button('Start from this location', container),
+                    destBtn = button('Go to this location', container);
+                // two different ways for gathering waypoints, can be used with getWaypoints API option as well
+                L.DomEvent.on(startBtn, 'click', function () {
+                    control.spliceWaypoints(0, 1, e.latlng);
+                    map.closePopup();
+                });
+
+                L.DomEvent.on(destBtn, 'click', function () {
+                    control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+                    map.closePopup();
+                });
+
+                L.popup().setContent(container).setLatLng(e.latlng).openOn(leafletMap);
+            });
+        }
+       
+        // renders something useful if the map is invalid
+        function setInvalidMap() {
+            var map = document.getElementById("jobSiteMap");
+            map.classList.add("invalidMap");
+            map.innerHTML = "<div>Invalid Address</div>";
+        };
 
 
 *Jump to: [Page Top](#live-project), [Restaurant Application](#restaurant-application), [Hotel Search cleanup](#hotel-search-cleanup)*
