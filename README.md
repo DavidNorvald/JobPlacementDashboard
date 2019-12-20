@@ -1,7 +1,7 @@
 # Live Project
 
 ## Introduction
-For my first 2 week sprint at the Tech Academy, I participated in the Live Project course for Python were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implimenting new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
+For my first 2 week sprint at the Tech Academy, I participated in the Live Project course for Python were I worked with fellow students on a Django Web Application. While the Web Application was already constructed, we were tasked with implementing new apps and updating existing apps. While some of these new applications were adding new features to the website for the ease of the consumers use, other existing apps needed to be fixed and updated. Over the course of this Live Project sprint, we got to see how it is to work as a team with fellow developers and work on the storyboards to make the ease of the work load more manageable and improve our [skills](#skills-learned-from-course) as developers. 
 
 
 ## Python Stories
@@ -27,7 +27,7 @@ For my first 2 week sprint at the Tech Academy, I participated in the Live Proje
 
 
 ### Restaurant Application
-I worked on implimenting a "search by cuisine type" feature to the Restaurant Application along side the City and Sate search feature already in place. The application used the Zomato API, so I had to research how to impliment the URL parameters to use the existing search results to include the resulting cuisine ID numbers that the Zomato API uses in its search query. The returning results from the API needed to be parsed through to only retrieve the cuisine name and cuisine ID, and then make sure that the cuisine name matched what the user input into the form fields on the web application.
+I worked on implementing a "search by cuisine type" feature to the Restaurant Application alongside the City and State search feature already in place. The application used the Zomato API, so I had to research how to implement the URL parameters to use the existing search results to include the resulting cuisine ID numbers that the Zomato API uses in its search query. The returning results from the API needed to be parsed through to only retrieve the cuisine name and cuisine ID, and then make sure that the cuisine name matched what the user input into the form fields on the web application.
 
 
          # getting Cuisine ID
@@ -62,7 +62,7 @@ I worked on implimenting a "search by cuisine type" feature to the Restaurant Ap
             count +=1
        
        
-Along with implimenting the new search feature, the Restaurant Application needed some cleanup on the front end so that it would not return plain forms to the user.
+Along with implimenting the new search feature, the Restaurant Application needed some cleanup on the front-end so that it would not return plain forms to the user.
 
 
     #RestWrapper {
@@ -133,7 +133,7 @@ Along with implimenting the new search feature, the Restaurant Application neede
 
 
 ### Hotel Search cleanup
-Along with updating the Restaurant Applications search features, I also worked on cleaning up the Hotel Search Application to be more user friendly. Over the course of this project, I cleaned up the user interface and styled the front end portion of the application so the user could read the data being returned fromt eh search. I kept the data returned to a minimun and added a modal that housed additional info when clicked. 
+Along with updating the Restaurant Applications search features, I also worked on cleaning up the Hotel Search Application to be more user friendly. Over the course of this project, I cleaned up the user interface and styled the front-end portion of the application so the user could read the data being returned from the search. I kept the data returned to a minimum and added a modal that housed additional info when clicked. 
 
 
   {% block search_results %}
@@ -171,7 +171,7 @@ Along with updating the Restaurant Applications search features, I also worked o
   {% endblock %}
   
   
-The CSS stylings for the Hotal Search were kept in line with the overall stylings of the Web Application as a whole so that everything looked like it fit together.
+The CSS stylings for the Hotel Search were kept in line with the overall stylings of the Web Application as a whole so that everything looked like it fit together.
   
 
     #HotelDestination {
@@ -223,8 +223,8 @@ The CSS stylings for the Hotal Search were kept in line with the overall styling
 
 
 ### Preloader
-While working on the C# Live Project, I had to impliment a Preloader gif to the button classes. When clicked upon, the preloader gif would trigger, displaying the gif to show the user that the page was loading.
-Below is teh code snip of the Preloader script. It starts by targeting the .btnSubmit class, and when the button is clicked, it shows the loading gif of #divLoader by targeting its id. The gif appears when submitting data using the POST method so the user knows that their data is being posted to the db.
+While working on the C# Live Project, I had to implement a Preloader gif to the button classes. When clicked upon, the preloader gif would trigger, displaying the gif to show the user that the page was loading.
+Below is the code snip of the Preloader script. It starts by targeting the .btnSubmit class, and when the button is clicked, it shows the loading gif of #divLoader by targeting its id. The gif appears when submitting data using the POST method, so the user knows that their data is being posted to the db.
 
          // PRELOADER script
          $(".btnSubmit").click(function () {
@@ -250,8 +250,8 @@ Below is teh code snip of the Preloader script. It starts by targeting the .btnS
 
 
 ### Save Button Bug
-The next story that I worked on in the C# Live Project was fixing the save button on the Edit section of the Jobs view. When the user tried to update a pre-existing job, the changes would not be recorded in the db and when the user clicked the save button, nothing would happen. There was a conflicting script on the Jobs/Edit view that was causing the button to not function, soa fter removing the script that did not do anything anymore, the button started functioning, but would only save some of the changes and not all of them.
-I had to edit the controller to include the changes made to the jobType, Notes, Active, and WeeklyShifts tables, so those changes would be updated in the db whent he user hit the Save button. Below is the code for the Jobs Controller for the Save button to fully function.
+The next story that I worked on in the C# Live Project was fixing the save button on the Edit section of the Jobs view. When the user tried to update a pre-existing job, the changes would not be recorded in the db and when the user clicked the save button, nothing would happen. There was a conflicting script on the Jobs/Edit view that was causing the button to not function, so after removing the script that did not do anything anymore, the button started functioning, but would only save some of the changes and not all of them.
+I had to edit the controller to include the changes made to the jobType, Notes, Active, and WeeklyShifts tables, so those changes would be updated in the db when the user hit the Save button. Below is the code for the Jobs Controller for the Save button to fully function.
 
 The below method uses the TryUpdateModel method and targets the job type, notes, active, and weekly shifts fields specifically as the other fields are updated in the prior methods of the Controller.
 
@@ -273,8 +273,8 @@ The below method uses the TryUpdateModel method and targets the job type, notes,
             
 
 ### Site Tour
-For my front-end design sprint, I chose the story that implimented a site tour for the whole project to guide users around the site, showing them the different features that are available. The first attempt at the site tour was done with Bootstrap Tour. After a lot of research about how to implement the tour on the project, we found out that the current version of Bootstrap4 does not work with Bootstrap Tour as it has not been updated to reflect the new changes. Bootstrap Tour is a very fun way to guide a user around your site and is overall a very clean approach to a site tour, but it was just not compatible with the Live Project's other features as it is dependent on tooltip.js and popover.js for it to work. 
-After many failed attempts on trying to get it working (I tried both the full version and the minified versions of Bootstrap Tour to no success) it was discussed at trying to use another site tour plugin. I ended up going with intro.js as it did not have any dependencies that would conflict with anything else on the Live Project. Intro.js is also a very clean approach at guiding your users around your site and has a lot of its features built into its own JavaScript and CSS files, making it easier to implement. There were a few bugs when trying to get the site tour to work, like not covering up the element that the tour was trying to show the user, but was able to resolve that issue by reading about another persons experience with the same thing and the fix to get intro.js to not cover up teh elements. I also styled the tooltip containers to reflect the color pallete of teh Live Project, so that it looked like it fit in with the rest of the project. The tour was started when the user would click on the site tour button that was added to the navigation bar upon clicking it.
+For my front-end design sprint, I chose the story that implemented a site tour for the whole project to guide users around the site, showing them the different features that are available. The first attempt at the site tour was done with Bootstrap Tour. After a lot of research about how to implement the tour on the project, we found out that the current version of Bootstrap4 does not work with Bootstrap Tour as it has not been updated to reflect the new changes. Bootstrap Tour is a very fun way to guide a user around your site and is overall a very clean approach to a site tour, but it was just not compatible with the Live Project's other features as it is dependent on tooltip.js and popover.js for it to work. 
+After many failed attempts on trying to get it working (I tried both the full version and the minified versions of Bootstrap Tour to no success) it was discussed at trying to use another site tour plugin. I ended up going with intro.js as it did not have any dependencies that would conflict with anything else on the Live Project. Intro.js is also a very clean approach at guiding your users around your site and has a lot of its features built into its own JavaScript and CSS files, making it easier to implement. There were a few bugs when trying to get the site tour to work, like not covering up the element that the tour was trying to show the user, but was able to resolve that issue by reading about another persons experience with the same thing and the fix to get intro.js to not cover up the elements. I also styled the tooltip containers to reflect the color pallet of the Live Project, so that it looked like it fit in with the rest of the project. The tour was started when the user would click on the site tour button that was added to the navigation bar upon clicking it.
 
          <script type="text/javascript">
              function startIntro() {
@@ -322,7 +322,7 @@ After many failed attempts on trying to get it working (I tried both the full ve
     }
 </script>
 
-I also had to make sure that the site tour button was not able to be triggered while on any of the other pages of the Live Project, with the exception of the dashboard. To achieve this I had to make the button show on the dashboard, but hidden on all other sites by using an if else statement. Below is the code to achieve that functionality.
+I also had to make sure that the site tour button was not able to be triggered while on any of the other pages of the Live Project, with the exception of the dashboard. To achieve this, I had to make the button show on the dashboard but hidden on all other sites by using an if else statement. Below is the code to achieve that functionality.
 
          <!-- hides Site Tour button on all pages but dashboard -->
          <script type="text/javascript">
@@ -337,7 +337,7 @@ I also had to make sure that the site tour button was not able to be triggered w
          
 
 ### Anchor Button Cleanup
-For one of the back-end stories, I had to cleanup the Anchor Buttons that were implimented in a prior story and change over all the buttons on the various pages to reflect the new styling of the Anchor Buttons. The buttons that needed to be changed looked like this:
+For one of the back-end stories, I had to clean up the Anchor Buttons that were implemented in a prior story and change over all the buttons on the various pages to reflect the new styling of the Anchor Buttons. The buttons that needed to be changed looked like this:
 
          @Html.ActionLink("Back to List", "Index")
          
@@ -348,7 +348,7 @@ and needed to be changed to this:
 
 ### JobSite directions
 For my back-end story, I was tasked with implementing the addition of directions to the Job Site locations through the Leaflet map that was already deployed in the project. I had to first get Leaflet-Routing-machine added to the project along with the appropriate files to help the plugin function, like the addition of a Geocoder for address verification. For the project, I used Nominatim, as it was what was recommended on the documentation for Leaflet-Routing-Machine.
-Through the addition of the plugin, I was able to add a popup on the Leaflet map that the user could input starting and ending locations for directions, it also could be minimized if the user wanted to look at the map in greater detail. The API's documentation also allowed for the direction route to be draggable, in case the user wanted to take another direction instead of what Leaflet-Routing-Machine recommended, and would update the directions on screen to match the new route in real time. 
+Through the addition of the plugin, I was able to add a popup on the Leaflet map that the user could input starting and ending locations for directions, it also could be minimized if the user wanted to look at the map in greater detail. The API's documentation also allowed for the direction route to be draggable, in case the user wanted to take another direction instead of what Leaflet-Routing-Machine recommended and would update the directions on screen to match the new route in real time. 
 
          //Creates a leaflet map to display on the user's screen
                  function setLeafletMap(mapId, lat, long, popupText) {
@@ -432,4 +432,4 @@ Overall, for the duration of the Live Project course for Python, it was great to
 
 
 ### Summary of Live Project
-Through learning how to troubleshoot our problems and only reaching out if we were truly stuck on a problem, I felt it taught us how to be a better developer by troubleshootin gour own issues and really leveraging websites and forums for help and to give us a sense that just because we are junior developers, we are not alone in the world of coding and that everyone runs into issues, but that there is a wealth of knowledge available on the internet and websites like stackoverflow are an amazing resource for debugging code and to connect with the development community.
+Through learning how to troubleshoot our problems and only reaching out if we were truly stuck on a problem, I felt it taught us how to be a better developer by troubleshooting our own issues and really leveraging websites and forums for help and to give us a sense that just because we are junior developers, we are not alone in the world of coding and that everyone runs into issues, but that there is a wealth of knowledge available on the internet and websites like stackoverflow are an amazing resource for debugging code and to connect with the development community.
